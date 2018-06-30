@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, WebView, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, WebView, Dimensions, ActivityIndicator } from 'react-native';
 import PDFReader from 'rn-pdf-reader-js';
 
 const pdfImage = require('./assets/pdf.png');
@@ -21,6 +21,14 @@ export default class ListScreen extends React.Component {
     };
   };
 
+  displaySpinner() {
+    return (
+      <View>
+          <ActivityIndicator color='#000000' size='large' />
+      </View>
+    );
+  }
+
   render() {
     console.log(this.props.item.url);
     return (
@@ -32,6 +40,9 @@ export default class ListScreen extends React.Component {
             startInLoadingState={false}
             scalesPageToFit
             source={{uri: this.props.item.url}}
+            renderLoading={() => {
+                return this.displaySpinner();
+            }}
     />
         </View>  
     );
